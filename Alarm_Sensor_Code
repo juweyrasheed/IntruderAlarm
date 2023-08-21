@@ -1,0 +1,18 @@
+from microbit import *
+import radio
+
+radio.on()
+radio.config(channel=40)  
+
+while True:
+    # Read accelerometer data
+    x, y, z = accelerometer.get_values()
+
+    # Calculating the total acceleration (excluding gravity) in 3D space
+    acceleration = (x ** 2 + y ** 2 + z ** 2) ** 0.5
+
+    # Checking if the acceleration exceeds a threshold to detect motion
+    if acceleration > 1200:  # this value is according to preference
+        radio.send("Intruder Alert!")
+
+    sleep(50)  # Delay between readings
